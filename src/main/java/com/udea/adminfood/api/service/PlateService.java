@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.udea.adminfood.api.exception.BusinessException;
 import com.udea.adminfood.api.model.Plate;
 import com.udea.adminfood.api.repository.IPlateRepository;
 
@@ -13,8 +14,9 @@ public class PlateService {
 
 	private IPlateRepository _plateRepository;
 	
-	public PlateService(IPlateRepository plateRepository ) {
+	public PlateService(IPlateRepository plateRepository) {
 		_plateRepository=plateRepository;
+
 	}
 	
 	public List<Plate> getPlates(){
@@ -22,10 +24,10 @@ public class PlateService {
 	}
 	
 
-    public Plate getPlate(Integer id) throws Exception {
+    public Plate getPlate(Integer id)  {
         Optional<Plate> plate =_plateRepository.findById(id);
         if(!plate.isPresent())
-            {throw new Exception("exception.data_not_found.plate");}
+            {throw new BusinessException("exception.data_not_found.plate");}
         return plate.get();
     }
 
@@ -34,16 +36,16 @@ public class PlateService {
         return _plateRepository.findAll();
     }
 
-    public void createUpdatePlate(Plate plate)
+    public Plate createUpdatePlate(Plate plate)
     {
-    	_plateRepository.save(plate);
+    	return _plateRepository.save(plate);
     }
 
-    public void deletePlate(Plate plate) throws Exception
+    public void deletePlate(Integer Id) 
     {
-        Optional<Plate> OPlate =_plateRepository.findById(plate.getId());
+        Optional<Plate> OPlate =_plateRepository.findById(Id);
         if(!OPlate.isPresent())
-            {throw new Exception("exception.data_not_found.plate");}
-        _plateRepository.deleteById(plate.getId());
-    }
+            {throw new BusinessException("exception.data_not_found.plate");}
+        _plateRepository.deleteById(Id);
+    } 
 }

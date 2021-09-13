@@ -1,45 +1,92 @@
 package com.udea.adminfood.api.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.persistence.*;
 
 @Entity
-@Table(name = "\"Plates\"")
+@Table(name = "plates")
 public class Plate {
 
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private String description;
+	private String name;
+	private double price;
+	private Integer id_category;
+
+	@OneToMany(mappedBy = "plate", 
+			cascade = {CascadeType.PERSIST,CascadeType.REFRESH,
+					CascadeType.REMOVE,CascadeType.MERGE})
+	private Set<InputPlate> inputPlates;
 	
-	  @Id
-	  
-	  @Column(name = "id")
-	  
-	  @SequenceGenerator(name = "plate_sequence", sequenceName = "plate_sequence",
-	  allocationSize = 1)
-	  
-	  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =
-	  "plate_sequence") private Integer id; private String description; private
-	  double price;
-	  
-	  public Plate() { };
-	  
-	  public Integer getId() { return id; }
-	  
-	  public void setId(Integer id) { this.id = id; }
-	  
-	  public String getDescription() { return description; }
-	  
-	  public void setDescription(String description) { this.description =
-	  description; }
-	  
-	  public double getPrice() { return price; }
-	  
-	  public void setPrice(double price) { this.price = price; }
-	  
-	  public Plate(Integer id, String description, double price) { this.id = id;
-	  this.description = description; this.price = price; }
-	 
+	public Plate() {
+	};
+
+	public Plate(Integer id, String description, String name, double price, Integer id_category) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.name = name;
+		this.price = price;
+		this.id_category = id_category;
+		  
+	}
+
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getId_category() {
+		return id_category;
+	}
+
+	public void setId_category(Integer id_category) {
+		this.id_category = id_category;
+	}
+
+	public Set<InputPlate> getInputPlate() {
+		return inputPlates;
+	}
+
+	public void setInputPlate(InputPlate... inputPlates) {
+		for(InputPlate inputPlate : inputPlates) inputPlate.setPlate(this);
+	        this.inputPlates = Stream.of(inputPlates).collect(Collectors.toSet());
+	}
+
 }
