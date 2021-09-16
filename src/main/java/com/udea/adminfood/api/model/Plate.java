@@ -1,12 +1,18 @@
 package com.udea.adminfood.api.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+
+
 
 @Entity
 @Table(name = "plates")
@@ -21,11 +27,9 @@ public class Plate {
 	private double price;
 	private Integer id_category;
 
-	@OneToMany(mappedBy = "plate", 
-			cascade = {CascadeType.PERSIST,CascadeType.REFRESH,
-					CascadeType.REMOVE,CascadeType.MERGE})
+	@OneToMany(mappedBy = "plate", cascade =  CascadeType.ALL ,orphanRemoval=true)
 	private Set<InputPlate> inputPlates;
-	
+
 	public Plate() {
 	};
 
@@ -36,9 +40,8 @@ public class Plate {
 		this.name = name;
 		this.price = price;
 		this.id_category = id_category;
-		  
-	}
 
+	}
 
 	public Integer getId() {
 		return id;
@@ -84,9 +87,9 @@ public class Plate {
 		return inputPlates;
 	}
 
-	public void setInputPlate(InputPlate... inputPlates) {
-		for(InputPlate inputPlate : inputPlates) inputPlate.setPlate(this);
-	        this.inputPlates = Stream.of(inputPlates).collect(Collectors.toSet());
+	public void setInputPlate(Set<InputPlate> inputPlates) {
+		
+		this.inputPlates = inputPlates;
 	}
 
 }

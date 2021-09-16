@@ -3,7 +3,15 @@ package com.udea.adminfood.api.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "inputs")
@@ -17,8 +25,8 @@ public class Input {
 	private Integer id_unit_measurement;
 	private Integer id_input_type;
 
-	  @OneToMany(mappedBy = "input", cascade = CascadeType.ALL)
-	private Set<InputPlate> inputPlates = new HashSet<>();
+	@OneToMany(mappedBy = "input", cascade = CascadeType.PERSIST,orphanRemoval = true)
+	private Set<InputPlate> inputPlates ;
 
 	public Input() {
 	};
@@ -30,6 +38,7 @@ public class Input {
 		this.quantity = quantity;
 		this.id_unit_measurement = id_unit_measurement;
 		this.id_input_type = id_input_type;
+		this.inputPlates= new HashSet<>();
 	}
 
 	public Integer getId() {
@@ -79,7 +88,5 @@ public class Input {
 	public void setInputPlate(Set<InputPlate> inputPlate) {
 		this.inputPlates = inputPlate;
 	}
-	
-	
 
 }
