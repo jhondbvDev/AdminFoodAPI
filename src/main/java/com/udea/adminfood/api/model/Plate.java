@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Plate {
 	private double price;
 	private Integer id_category;
 
-	@OneToMany(mappedBy = "plate", cascade =  CascadeType.ALL ,orphanRemoval=true)
+	@OneToMany(mappedBy = "plate", cascade =  CascadeType.ALL ,orphanRemoval=false,fetch=FetchType.LAZY)
 	private Set<InputPlate> inputPlates;
 
 	public Plate() {

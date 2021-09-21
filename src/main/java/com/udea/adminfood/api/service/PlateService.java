@@ -47,5 +47,6 @@ public class PlateService {
         if(!OPlate.isPresent())
             {throw new BusinessException("exception.data_not_found.plate");}
         _plateRepository.deleteById(Id);
+        _plateRepository.flush();
     } 
 }

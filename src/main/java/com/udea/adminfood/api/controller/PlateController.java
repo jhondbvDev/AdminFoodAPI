@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/plates")
+@RequestMapping("api/plates")
 public class PlateController {
 
 	PlateService _service;
@@ -78,22 +78,17 @@ public class PlateController {
 	}
 
 	@PutMapping
-	@RequestMapping("update")
 	public void updatePlate(@RequestBody Plate plate) throws Exception {
-		// Plate OPlate = _service.getPlate(plate.getId());
-
-		// OPlate.setDescription(plate.getDescription());
-		// _service.createUpdatePlate(plate);
+		_service.createUpdatePlate(plate);
 	}
 
 	@PostMapping
-	@RequestMapping("create")
 	public void addPlate(@RequestBody Plate plate) {
 		_service.createUpdatePlate(plate);
 	}
 
 	@DeleteMapping
-	@RequestMapping("delete/{id}")
+	@RequestMapping("{id}")
 	public void deletePlate(@PathVariable Integer id) {
 		_service.deletePlate(id);
 	}
