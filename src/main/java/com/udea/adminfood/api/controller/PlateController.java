@@ -29,14 +29,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class PlateController {
 
 	PlateService _service;
-	InputService _inputService;
+	
 	@Autowired
 	ModelMapper mapper;
 
 	@Autowired
-	public PlateController(PlateService plateService, InputService inputService) {
+	public PlateController(PlateService plateService) {
 		_service = plateService;
-		_inputService = inputService;
+	
 	}
 
 	@GetMapping()
@@ -93,25 +93,25 @@ public class PlateController {
 		_service.deletePlate(id);
 	}
 
-	@GetMapping
-	@RequestMapping("test")
-	public void test() {
+	// @GetMapping
+	// @RequestMapping("test")
+	// public void test() {
 
-		Plate plate = new Plate(0, "Delicioso Burrito de carne", "Burrito de carne", 12300, null);
-		Input input = new Input(0, "Queso", 30, null, null);
-		Input pan = new Input(0, "Pan", 10, null, null);
+	// 	Plate plate = new Plate(0, "Delicioso Burrito de carne", "Burrito de carne", 12300, null);
+	// 	Input input = new Input(0, "Queso", 30, null, null);
+	// 	Input pan = new Input(0, "Pan", 10, null, null);
 
-		input = _inputService.createUpdateInput(input);
-		pan = _inputService.createUpdateInput(pan);
-		// plate = _service.createUpdatePlate(plate);
-		InputPlate inputPlate = new InputPlate(null, plate, input, 3);
-		Set<InputPlate> setInputPlate = new HashSet<>();
-		setInputPlate.add(inputPlate);
-		setInputPlate.add(new InputPlate(0, plate, pan, 5));
+	// 	input = _inputService.createUpdateInput(input);
+	// 	pan = _inputService.createUpdateInput(pan);
+	// 	// plate = _service.createUpdatePlate(plate);
+	// 	InputPlate inputPlate = new InputPlate(null, plate, input, 3);
+	// 	Set<InputPlate> setInputPlate = new HashSet<>();
+	// 	setInputPlate.add(inputPlate);
+	// 	setInputPlate.add(new InputPlate(0, plate, pan, 5));
 
-		plate.setInputPlate(setInputPlate);
+	// 	plate.setInputPlate(setInputPlate);
 
-		_service.createUpdatePlate(plate);
-	}
+	// 	_service.createUpdatePlate(plate);
+	// }
 
 }

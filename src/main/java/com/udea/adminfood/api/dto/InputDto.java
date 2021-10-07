@@ -3,12 +3,12 @@ package com.udea.adminfood.api.dto;
 public class InputDto {
     
     private Integer id;
-    private Integer description;
+    private String description;
     private Integer quantity;
     private Integer id_unit_measurement;
 	private Integer id_input_type;
     
-    public InputDto(Integer id, Integer description, Integer quantity, Integer id_unit_measurement,
+    public InputDto(Integer id, String description, Integer quantity, Integer id_unit_measurement,
             Integer id_input_type) {
         this.id = id;
         this.description = description;
@@ -24,10 +24,10 @@ public class InputDto {
     public void setId(Integer id) {
         this.id = id;
     }
-    public Integer getDescription() {
+    public String getDescription() {
         return description;
     }
-    public void setDescription(Integer description) {
+    public void setDescription(String description) {
         this.description = description;
     }
     public Integer getQuantity() {
