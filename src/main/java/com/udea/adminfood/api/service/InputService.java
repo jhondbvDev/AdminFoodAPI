@@ -1,5 +1,6 @@
 package com.udea.adminfood.api.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,16 +8,19 @@ import org.springframework.stereotype.Service;
 
 import com.udea.adminfood.api.exception.BusinessException;
 import com.udea.adminfood.api.model.Input;
+import com.udea.adminfood.api.model.InputPlate;
+import com.udea.adminfood.api.repository.IInputPlateRepository;
 import com.udea.adminfood.api.repository.IInputRepository;
 
 @Service
 public class InputService {
 
 	private IInputRepository _repository;
+	private IInputPlateRepository _inputPlateRepository;
 	
-	
-	public InputService(IInputRepository InputRepository ) {
+	public InputService(IInputRepository InputRepository ,IInputPlateRepository inputPlateRepository ) {
 		_repository=InputRepository;
+        _inputPlateRepository=inputPlateRepository;
 	}
 	
 	public List<Input> getInputs(){
@@ -31,6 +35,13 @@ public class InputService {
         return Input.get();
     }
 
+    public List<Input> getByPlateId(Integer id)
+    {
+        List<Input> inputs = new ArrayList<Input>();
+        List<InputPlate> inputPlates= _inputPlateRepository.getInputsByPlateId(id);
+        inputPlates.forEach(e->inputs.add(e.getInput()));
+        return inputs;
+    }
 
     public List<Input> search(String term) {
         return _repository.findAll();

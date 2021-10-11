@@ -48,6 +48,7 @@ public class PlateController {
 		return ResponseEntity.ok(platesDto);
 	}
 
+
 	@GetMapping("{id}")
 	public ResponseEntity<PlateDto> getPlate(@PathVariable Integer id) throws Exception {
 

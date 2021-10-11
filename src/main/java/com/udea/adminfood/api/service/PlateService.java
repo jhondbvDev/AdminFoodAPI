@@ -13,10 +13,9 @@ import org.springframework.stereotype.Service;
 public class PlateService {
 
 	private IPlateRepository _plateRepository;
-	
 	public PlateService(IPlateRepository plateRepository) {
 		_plateRepository=plateRepository;
-
+    
 	}
 	
 	public List<Plate> getPlates(){
